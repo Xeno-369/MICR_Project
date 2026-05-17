@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/home/xeno369/Documents/Git_MICR_Project/Frontend/Accueil_MICR/logo.png" width="200" alt="MICR Project Logo">
+  <img src="logo.png" width="200" alt="MICR Project Logo">
 </p>
 
 # 🕊️ MICR Project : Digitaliser la Foi
