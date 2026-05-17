@@ -1083,3 +1083,35 @@ footer {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+
+/* Conteneur du logo */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;  /* Empêche le logo de rétrécir */
+}
+
+/* Image du logo */
+.logo-img {
+  height: 50px;    /* Hauteur fixe pour la navbar */
+  width: auto;     /* Largeur automatique pour garder les proportions */
+  object-fit: contain;
+  display: block;
+  border-radius: 8px;  /* Optionnel : petits coins arrondis */
+}
+
+/* Version tablette */
+@media (max-width: 768px) {
+  .logo-img {
+    height: 42px;
+  }
+}
+
+/* Version mobile */
+@media (max-width: 480px) {
+  .logo-img {
+    height: 36px;
+  }
+}
