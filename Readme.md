@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Frontend/Accueil_MICR/logo.png" width="400" alt="MICR Project Logo">
+  <img src="Frontend/assets/img/logo.png" width="400" alt="MICR Project Logo">
 </p>
 
 # 🕊️ MICR Project : Digitaliser la Foi
@@ -33,14 +33,13 @@ MICR_Project/
 ├── Readme.md                   Ce fichier
 ├── .gitignore                  Protège .env et les dumps SQL
 │
-├── Frontend/                   Interface publique (HTML / CSS / JS)
-│   └── Accueil_MICR/
-│       ├── MICR_accueil.html   Page d'accueil
-│       ├── MICR_accueil.css
-│       ├── MICR_accueil.js
-│       ├── logo.png            Logo MICR (aussi utilisé par ce README)
-│       ├── jesus.jpeg          Visuel de la section héro
-│       └── jesusLogo.jpeg      Visuel de l'écran de chargement
+├── Frontend/                   Interface publique (HTML / CSS / JS natifs)
+│   ├── index.html              Les 6 vues du site
+│   ├── README.md               Lancement, structure, reste à faire
+│   └── assets/
+│       ├── css/styles.css      Toute la mise en forme
+│       ├── js/main.js          Navigation + interactions
+│       └── img/logo.png        Logo MICR (aussi utilisé par ce README)
 │
 ├── database/                   Couche base de données — MySQL 8 / micr_db
 │   ├── README.md               ⭐ Documentation complète de la BDD (à lire avant d'y toucher)
@@ -74,7 +73,7 @@ MICR_Project/
 
 | Module | Périmètre | État |
 |---|---|---|
-| **Frontend** | Page d'accueil responsive (prédications, agenda, dons, contact) | ✅ Livrée |
+| **Frontend** | 6 vues responsives : accueil, médiathèque, agenda, dons, contact, admin | ✅ Maquette livrée (données statiques) |
 | **Database** | Schéma `micr_db` — 8 tables, migrations, seeds, validation, spec de mapping ORM | ✅ Livré (v1.0) |
 | **Backend** | API, authentification, upload média, paiements | ⏳ Hors dépôt — autre développeur |
 | **Déploiement** | VPS, nom de domaine, HTTPS, sauvegardes | ⏳ À venir |
@@ -113,8 +112,17 @@ cd MICR_Project
 
 ### 2. Visualiser le frontend
 
-Ouvrir `index.html` dans un navigateur — il redirige vers la page d'accueil.
-Directement : `Frontend/Accueil_MICR/MICR_accueil.html`.
+Ouvrir `index.html` dans un navigateur — il redirige vers `Frontend/index.html`.
+
+Pour que le routage par `#hash` fonctionne dans de bonnes conditions, servir
+le dossier plutôt que d'ouvrir le fichier directement :
+
+```bash
+python3 -m http.server 8000
+# puis http://localhost:8000/Frontend/
+```
+
+Détails et liste des points ouverts : [`Frontend/README.md`](Frontend/README.md).
 
 ### 3. Monter la base de données
 
