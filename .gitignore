@@ -1,0 +1,27 @@
+# --- Secrets ---------------------------------------------------------
+# Exigé par database/README.md section 9 : les identifiants MySQL
+# vivent dans .env, jamais dans le dépôt.
+.env
+.env.*
+!.env.example
+
+# --- Sauvegardes / dumps SQL -----------------------------------------
+# Aucun mysqldump de production ne doit atterrir sur Git : les tables
+# contacts, donations et newsletter contiennent des données réelles.
+*.sql.gz
+backup_micr_*.sql
+
+# --- Python / Django (backend) ---------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+staticfiles/
+media/
+
+# --- Système / éditeurs ----------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

@@ -1,12 +1,13 @@
 <p align="center">
-  <img src="logo.png" width="400" alt="MICR Project Logo">
+  <img src="Frontend/Accueil_MICR/logo.png" width="400" alt="MICR Project Logo">
 </p>
 
 # 🕊️ MICR Project : Digitaliser la Foi
 
 ![Status](https://img.shields.io/badge/Status-En_D%C3%A9veloppement-gold)
-![Tech](https://img.shields.io/badge/Stack-Frontend-blue)
-![Backend](https://img.shields.io/badge/Backend-Work_In_Progress-orange)
+![Frontend](https://img.shields.io/badge/Frontend-Page_d'accueil_livr%C3%A9e-blue)
+![Database](https://img.shields.io/badge/Database-Sch%C3%A9ma_v1.0_livr%C3%A9-brightgreen)
+![Backend](https://img.shields.io/badge/Backend-Hors_d%C3%A9p%C3%B4t-lightgrey)
 
 > **"Le Christ Ressuscité, au cœur du monde."**
 > Une plateforme immersive conçue pour transformer l'évangélisation à l'ère du numérique.
@@ -14,40 +15,136 @@
 ---
 
 ## ✨ À propos du projet
-Le **MICR Hub** n'est pas qu'un simple site web. C'est un écosystème multimédia complet dédié à la communauté du *Mouvement International du Christ Ressuscité*. Situé à Kara (Togo) mais à portée mondiale, ce projet fusionne spiritualité et technologie pour l'évangélisation.
 
-### 🚀 Fonctionnalités Clés (Frontend Opérationnel)
-* **📖 Prédications Multimédia :** Interface fluide pour l'accès aux contenus audio et vidéo.
-* **📅 Agenda Dynamique :** Visualisation des cultes et événements à venir.
-* **📱 Expérience Immersive :** Design responsive, épuré et optimisé pour le SEO.
+Le **MICR Hub** n'est pas qu'un simple site web. C'est un écosystème multimédia complet
+dédié à la communauté du *Mouvement International du Christ Ressuscité*. Situé à Kara
+(Togo) mais à portée mondiale, ce projet fusionne spiritualité et technologie pour
+l'évangélisation.
+
+Le cahier des charges complet est dans [`docs/MICR_CahierDesCharges.pdf`](docs/MICR_CahierDesCharges.pdf).
+
+---
+
+## 🗂️ Architecture du dépôt
+
+```
+MICR_Project/
+├── index.html                  Point d'entrée — redirige vers la page d'accueil
+├── Readme.md                   Ce fichier
+├── .gitignore                  Protège .env et les dumps SQL
+│
+├── Frontend/                   Interface publique (HTML / CSS / JS)
+│   └── Accueil_MICR/
+│       ├── MICR_accueil.html   Page d'accueil
+│       ├── MICR_accueil.css
+│       ├── MICR_accueil.js
+│       ├── logo.png            Logo MICR (aussi utilisé par ce README)
+│       ├── jesus.jpeg          Visuel de la section héro
+│       └── jesusLogo.jpeg      Visuel de l'écran de chargement
+│
+├── database/                   Couche base de données — MySQL 8 / micr_db
+│   ├── README.md               ⭐ Documentation complète de la BDD (à lire avant d'y toucher)
+│   ├── schema.sql              Les 8 tables en un seul fichier (installation neuve)
+│   ├── migrations/             001 → 005 — historique des changements de schéma
+│   ├── seeds/                  4 jeux de données de test
+│   ├── django_models_reference.py   Spec de mapping SQL → Django (voir note ci-dessous)
+│   ├── validate_schema.sh      20 contrôles automatiques
+│   └── .env.example            Modèle des variables de connexion
+│
+└── docs/
+    └── MICR_CahierDesCharges.pdf
+```
+
+> **Le backend ne figure pas dans ce dépôt.** Il est développé séparément par un autre
+> membre de l'équipe. Ce que la base de données attend de lui est décrit dans
+> [`database/README.md` §13](database/README.md).
+
+> **À propos de `database/django_models_reference.py`** — malgré son extension `.py`,
+> ce fichier **n'est pas une application Django** : aucune vue, aucune URL, aucun
+> `settings.py`, aucune logique métier. C'est une **spécification** produite par la
+> couche base de données : la traduction des 8 tables en modèles ORM, qui documente les
+> endroits où Django et le schéma SQL ne s'accordent pas spontanément — colonne
+> `password_hash` vs attribut `password`, colonne `actif` vs `is_active`, droits admin
+> dérivés de `role`. Le développeur backend s'en sert comme point de départ ; il reste
+> propriétaire de son implémentation.
+
+---
+
+## 📦 État des modules
+
+| Module | Périmètre | État |
+|---|---|---|
+| **Frontend** | Page d'accueil responsive (prédications, agenda, dons, contact) | ✅ Livrée |
+| **Database** | Schéma `micr_db` — 8 tables, migrations, seeds, validation, spec de mapping ORM | ✅ Livré (v1.0) |
+| **Backend** | API, authentification, upload média, paiements | ⏳ Hors dépôt — autre développeur |
+| **Déploiement** | VPS, nom de domaine, HTTPS, sauvegardes | ⏳ À venir |
 
 ---
 
 ## 🎨 Identité Visuelle
-Le projet utilise une charte graphique forte, visible dès la page d'accueil :
-* **Bleu Nuit (#0D1B2A) :** Symbolisant la profondeur, le sérieux et la sérénité.
-* **Or (#E09F3E) :** Représentant la lumière, le divin et la préciosité.
+
+* **Bleu Nuit (#0D1B2A)** — profondeur, sérieux, sérénité.
+* **Or (#E09F3E)** — lumière, divin, préciosité.
 
 ---
 
 ## 🛠️ Stack Technique
-* **Frontend :** HTML5, CSS3 (Flexbox/Grid), JavaScript (ES6+).
-* **Architecture :** Gestion de projet structurée avec des branches dédiées (`main`, `Frontend`, `Backend`, `DataBase`).
 
----
+| Couche | Technologies |
+|---|---|
+| **Frontend** | HTML5, CSS3 (Flexbox / Grid), JavaScript (ES6+) |
+| **Database** | MySQL 8.x, moteur InnoDB, charset `utf8mb4` |
+| **Backend** | Django (ORM) — hors dépôt |
 
-## 🚧 État de l'Avancement (Prochaines Étapes)
-Le projet est actuellement développé par une **équipe de 4 personnes**. Le frontend est bien avancé, et nous nous concentrons désormais sur :
-
-1. **Backend & Base de Données :** Implémentation du serveur, gestion des utilisateurs, stockage des médias et intégration des paiements (Flooz/T-Money/CB).
-2. **Déploiement :** Finalisation des formalités techniques pour la mise en production.
+**Convention de branches :** `main` pour l'intégration, `feature/<module>` pour le
+travail en cours (`feature/database`, `feature/frontend`, `feature/backend`).
+Toute évolution arrive sur `main` par Pull Request.
 
 ---
 
 ## 📥 Installation
-Pour cloner le projet localement et visualiser le frontend :
+
+### 1. Cloner le dépôt
 
 ```bash
-git clone [https://github.com/Xeno-369/MICR_Project.git](https://github.com/Xeno-369/MICR_Project.git)
+git clone https://github.com/Xeno-369/MICR_Project.git
 cd MICR_Project
-# Ouvrir le fichier MICR_accueil.html dans votre navigateur
+```
+
+### 2. Visualiser le frontend
+
+Ouvrir `index.html` dans un navigateur — il redirige vers la page d'accueil.
+Directement : `Frontend/Accueil_MICR/MICR_accueil.html`.
+
+### 3. Monter la base de données
+
+```bash
+# Structure (crée micr_db automatiquement)
+mysql -u root -p < database/schema.sql
+
+# Données de test — ordre imposé : users AVANT sermons
+mysql -u root -p < database/seeds/seed_users.sql
+mysql -u root -p < database/seeds/seed_sermons.sql
+mysql -u root -p < database/seeds/seed_events.sql
+mysql -u root -p < database/seeds/seed_donations_contacts.sql
+
+# Vérifier (20 contrôles, doit finir sur "TOUS LES TESTS PASSENT")
+bash database/validate_schema.sh
+```
+
+Puis copier le modèle de configuration :
+
+```bash
+cp database/.env.example .env
+```
+
+Les seeds sont réservés au **développement** : leurs mots de passe sont publics
+puisqu'ils sont dans le dépôt. Détails, schéma table par table, index, intégration
+Django et règles de sécurité : **[`database/README.md`](database/README.md)**.
+
+---
+
+## 👥 Équipe
+
+Projet développé par une équipe de 4 personnes, un module par personne
+(frontend, base de données, backend, déploiement).
