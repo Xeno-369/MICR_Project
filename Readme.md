@@ -47,7 +47,7 @@ MICR_Project/
 │   ├── schema.sql              Les 8 tables en un seul fichier (installation neuve)
 │   ├── migrations/             001 → 005 — historique des changements de schéma
 │   ├── seeds/                  4 jeux de données de test
-│   ├── django_models_reference.py   Traduction du schéma en modèles Django
+│   ├── django_models_reference.py   Spec de mapping SQL → Django (voir note ci-dessous)
 │   ├── validate_schema.sh      20 contrôles automatiques
 │   └── .env.example            Modèle des variables de connexion
 │
@@ -59,6 +59,15 @@ MICR_Project/
 > membre de l'équipe. Ce que la base de données attend de lui est décrit dans
 > [`database/README.md` §13](database/README.md).
 
+> **À propos de `database/django_models_reference.py`** — malgré son extension `.py`,
+> ce fichier **n'est pas une application Django** : aucune vue, aucune URL, aucun
+> `settings.py`, aucune logique métier. C'est une **spécification** produite par la
+> couche base de données : la traduction des 8 tables en modèles ORM, qui documente les
+> endroits où Django et le schéma SQL ne s'accordent pas spontanément — colonne
+> `password_hash` vs attribut `password`, colonne `actif` vs `is_active`, droits admin
+> dérivés de `role`. Le développeur backend s'en sert comme point de départ ; il reste
+> propriétaire de son implémentation.
+
 ---
 
 ## 📦 État des modules
@@ -66,7 +75,7 @@ MICR_Project/
 | Module | Périmètre | État |
 |---|---|---|
 | **Frontend** | Page d'accueil responsive (prédications, agenda, dons, contact) | ✅ Livrée |
-| **Database** | Schéma `micr_db` — 8 tables, migrations, seeds, validation, modèles Django | ✅ Livré (v1.0) |
+| **Database** | Schéma `micr_db` — 8 tables, migrations, seeds, validation, spec de mapping ORM | ✅ Livré (v1.0) |
 | **Backend** | API, authentification, upload média, paiements | ⏳ Hors dépôt — autre développeur |
 | **Déploiement** | VPS, nom de domaine, HTTPS, sauvegardes | ⏳ À venir |
 

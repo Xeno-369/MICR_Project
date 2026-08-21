@@ -1,0 +1,21 @@
+# =====================================================================
+# MICR_Project — Classification des fichiers pour GitHub (linguist)
+# ---------------------------------------------------------------------
+# database/django_models_reference.py n'est PAS une application Django.
+# C'est une SPECIFICATION : la traduction du schema micr_db en modeles
+# ORM, remise au developpeur backend (livrable 5 du README BDD).
+# On le declare comme documentation pour que GitHub ne le compte pas
+# comme du code source et ne badge pas le depot en "Python".
+# =====================================================================
+database/django_models_reference.py linguist-documentation
+
+# Les seeds sont des donnees de test, pas du code applicatif.
+database/seeds/*.sql linguist-data
+
+# Normalisation des fins de ligne (equipe Windows + Linux).
+* text=auto
+*.sql   text eol=lf
+*.sh    text eol=lf
+*.png   binary
+*.jpeg  binary
+*.pdf   binary
